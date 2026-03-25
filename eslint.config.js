@@ -45,6 +45,7 @@ module.exports = defineConfig([
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/explicit-member-accessibility': ['warn', { accessibility: 'no-public' }],
       '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+      '@typescript-eslint/array-type': ['error', { default: 'generic' }],
     },
   },
   {
