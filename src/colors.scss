@@ -1,0 +1,21 @@
+:root {
+  // Common
+  --color-white: #ffffff;
+
+  // Header
+  --color-header-bg: #1976d2;
+  --color-header-text: var(--color-white);
+  --color-header-shadow: rgba(0, 0, 0, 0.1);
+
+  // Viewer
+  --color-viewer-bg: #f5f5f5;
+  --color-page-bg: var(--color-white);
+  --color-page-shadow: rgba(0, 0, 0, 0.15);
+
+  // Annotation
+  --color-annotation-bg: rgba(255, 247, 0, 0.3);
+  --color-annotation-bg-hover: rgba(255, 247, 0, 0.7);
+  --color-annotation-outline: rgba(0, 0, 0, 0.1);
+  --color-annotation-delete-bg: gray;
+  --color-annotation-delete-text: var(--color-white);
+}

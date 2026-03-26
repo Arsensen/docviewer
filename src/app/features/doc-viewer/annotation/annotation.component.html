@@ -1,0 +1,12 @@
+<div
+  #annotationEl
+  class="app-annotation__textarea-wrapper"
+  [style.width.px]="annotation().width"
+  [style.height.px]="annotation().height"
+  (mouseup)="emitResizedDimensions()"
+>
+  <textarea class="app-annotation__text" (blur)="editText($event)" (input)="autoResize($event)">{{
+    annotation().text
+  }}</textarea>
+</div>
+<button class="app-annotation__delete-btn" (click)="deleteAnnotation($event)">✕</button>

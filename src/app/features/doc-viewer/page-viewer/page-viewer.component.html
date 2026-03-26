@@ -1,0 +1,32 @@
+<div class="app-page-viewer__wrapper" [style.width.px]="800 * zoom()">
+  <div
+    class="app-page-viewer__page"
+    (dblclick)="onPageDblClick($event)"
+    (touchend)="onPageTouchEnd($event)"
+    appDraggableArea
+  >
+    <img [src]="page().imageUrl" alt="Страница {{ page().number }}" draggable="false" />
+
+    @for (annotation of page().annotations; track annotation.id) {
+      <div
+        class="app-page-viewer__annotation-wrapper"
+        appDraggableItem
+        [dragFilter]="annotationDragFilter"
+        (positionChanged)="onAnnotationMoved(annotation, $event)"
+        (click)="$event.stopPropagation()"
+        (keydown)="$event.stopPropagation()"
+        (dblclick)="$event.stopPropagation()"
+        tabindex="0"
+        [style.left.%]="annotation.x"
+        [style.top.%]="annotation.y"
+        [style.transform]="'scale(' + zoom() + ')'"
+      >
+        <app-annotation
+          [annotation]="annotation"
+          (updateAnnotation)="updateAnnotation($event)"
+          (deleted)="annotationDeleted.emit($event)"
+        />
+      </div>
+    }
+  </div>
+</div>

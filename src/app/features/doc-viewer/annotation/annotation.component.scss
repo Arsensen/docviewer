@@ -1,0 +1,75 @@
+:host {
+  min-width: fit-content;
+}
+
+.app-annotation__textarea-wrapper {
+  box-sizing: border-box;
+  cursor: move;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--color-annotation-bg);
+  padding: 6px 12px;
+  border-radius: 10px;
+  min-width: 120px;
+  user-select: none;
+  z-index: 10;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  overflow: hidden;
+  resize: none;
+  transition: background-color 0.5s ease;
+
+  &:hover {
+    resize: both;
+    background: var(--color-annotation-bg-hover);
+  }
+}
+
+.app-annotation__text {
+  cursor: text;
+  user-select: text;
+  flex: 1;
+  width: 100%;
+  background: transparent;
+  border: none;
+  overflow: hidden;
+  height: 1.5em;
+  resize: none;
+
+  &:focus {
+    outline-width: 1px;
+    outline-color: var(--color-annotation-outline);
+    outline-style: ridge;
+    outline: none;
+  }
+}
+
+.app-annotation__delete-btn {
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  top: -18px;
+  left: -18px;
+  border-radius: 50%;
+  font-size: 12px;
+  line-height: 1;
+  background: var(--color-annotation-delete-bg);
+  color: var(--color-annotation-delete-text);
+  border: none;
+  opacity: 0;
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+}
+
+.app-annotation__textarea-wrapper:hover + .app-annotation__delete-btn {
+  opacity: 1;
+}

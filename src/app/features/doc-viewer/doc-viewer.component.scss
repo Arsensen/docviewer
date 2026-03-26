@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  height: 100vh;
+  overflow: hidden;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: var(--color-header-bg);
+  color: var(--color-header-text);
+  box-shadow: 0 2px 4px var(--color-header-shadow);
+}
+
+.app-doc-viewer__controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.app-doc-viewer__zoom-level {
+  min-width: 60px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.app-doc-viewer__viewer-container {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: safe center;
+  gap: 40px;
+  height: calc(100vh - 84px);
+  overflow: auto;
+  background: var(--color-viewer-bg);
+  padding: 20px;
+}

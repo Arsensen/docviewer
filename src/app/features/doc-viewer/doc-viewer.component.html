@@ -1,0 +1,21 @@
+<header>
+  <h1>{{ documentName() }}</h1>
+  <div class="app-doc-viewer__controls">
+    <button mat-icon-button (click)="zoomOut()">–</button>
+    <span class="app-doc-viewer__zoom-level">{{ zoom() * 100 | number: '1.0-0' }}%</span>
+    <button mat-icon-button (click)="zoomIn()">+</button>
+    <button mat-raised-button color="primary" (click)="save()">Сохранить</button>
+  </div>
+</header>
+
+<div class="app-doc-viewer__viewer-container">
+  @for (page of pages(); track page.number) {
+    <app-page-viewer
+      [page]="page"
+      [zoom]="zoom()"
+      (addAnnotation)="addAnnotation(page.number, $event)"
+      (annotationUpdated)="updateAnnotation($event)"
+      (annotationDeleted)="deleteAnnotation($event)"
+    />
+  }
+</div>

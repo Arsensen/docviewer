@@ -1,8 +1,11 @@
 import { InjectionToken } from '@angular/core';
-import type { Document } from '../models/document.interface';
+import type { IDocument } from '../models/document.interface';
 
 export interface DocumentApi {
-  getDocumentById(id: string): Document;
+  getDocumentById(id: string): IDocument;
+  saveDocument(document: IDocument): void;
 }
 
-export const DOCUMENT_API = new InjectionToken<DocumentApi>('DOCUMENT_API');
+export const DOCUMENT_API: InjectionToken<DocumentApi> = new InjectionToken<DocumentApi>(
+  'DOCUMENT_API',
+);

@@ -1,0 +1,30 @@
+.app-page-viewer__wrapper {
+  margin: 0 auto;
+  box-shadow: 0 10px 30px var(--color-page-shadow);
+  background: var(--color-page-bg);
+}
+
+.app-page-viewer__page {
+  cursor: crosshair;
+  position: relative;
+  display: inline-block;
+  user-select: none;
+  width: 100%;
+}
+
+img {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.app-page-viewer__annotation-wrapper {
+  position: absolute;
+  width: fit-content;
+  transform-origin: 0 0;
+}
+
+app-annotation {
+  display: block;
+  width: fit-content;
+}

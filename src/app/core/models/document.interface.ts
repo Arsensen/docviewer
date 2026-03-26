@@ -1,12 +1,6 @@
-import type { Annotation } from './annotation.interface';
+import type { IPage } from './page.interface';
 
-export interface Page {
-  number: number;
-  imageUrl: string;
-  annotations: Array<Annotation>;
-}
-
-export interface Document {
+export interface IDocument {
   name: string;
-  pages: Array<Page>;
+  pages: Array<IPage>;
 }
