@@ -1,13 +1,11 @@
 import type { ApplicationConfig } from '@angular/core';
 import { provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { DOCUMENT_API } from './core/data-access/document-api.token';
-import { DocumentHttpApi } from './core/data-access/document-api.service';
-import { DocumentMockApi } from './core/data-access/document-api.mock.service';
-
+import { DOCUMENT_API } from './core/api/document-api.token';
+import { DocumentHttpApi } from './core/api/document-api.service';
+import { DocumentMockApi } from './core/api/document-api.mock.service';
+import { environment } from '../environments/environment';
 import { routes } from './app.routes';
-
-const useMockDocumentApi: boolean = true as const; //TODO: pass through env variable
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,7 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     {
       provide: DOCUMENT_API,
-      useClass: useMockDocumentApi ? DocumentMockApi : DocumentHttpApi,
+      useClass: environment.useMockDocumentApi ? DocumentMockApi : DocumentHttpApi,
     },
   ],
 };

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { DOCUMENT_API } from '../data-access/document-api.token';
+import { DOCUMENT_API } from '../api/document-api.token';
 import type { IDocument } from '../models/document.interface';
 
 @Injectable({ providedIn: 'root' })

@@ -21,7 +21,7 @@ export class AnnotationComponent {
 
   /**
    * Emits the new dimensions of the annotation.
-   * Launches when user finishes resizing the annotation (on blur event).
+   * Launches when user finishes resizing the annotation (on mouseup event).
    */
   protected emitResizedDimensions(): void {
     const el: HTMLElement = this.annotationEl().nativeElement;
@@ -42,8 +42,14 @@ export class AnnotationComponent {
    */
   protected autoResize(event: Event): void {
     const textarea: HTMLTextAreaElement = event.target as HTMLTextAreaElement;
+    const previousHeight: number = textarea.offsetHeight;
     textarea.style.height = '0';
     textarea.style.height = `${textarea.scrollHeight}px`;
+
+    if (textarea.scrollHeight !== previousHeight) {
+      const annotation: IAnnotation = this.annotation();
+      this.updateAnnotation.emit({ ...annotation, height: textarea.scrollHeight });
+    }
   }
 
   /**
