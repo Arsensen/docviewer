@@ -20,7 +20,7 @@
 ```bash
 # Docker
 docker build -t docviewer .
-docker run -p 80:80 docviewer
+docker run -p 8080:80 docviewer
 ```
 
 Для доступа к тестовой странице в браузере нужно ввести:
