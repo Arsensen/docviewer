@@ -8,14 +8,29 @@
   </div>
 </header>
 
-<div class="app-doc-viewer__viewer-container">
-  @for (page of pages(); track page.number) {
-    <app-page-viewer
-      [page]="page"
-      [zoom]="zoom()"
-      (addAnnotation)="addAnnotation(page.number, $event)"
-      (annotationUpdated)="updateAnnotation($event)"
-      (annotationDeleted)="deleteAnnotation($event)"
-    />
+@switch (loadingState()) {
+  @case ('loading') {
+    <div class="app-doc-viewer__status">
+      <p>Загрузка документа...</p>
+    </div>
   }
-</div>
+  @case ('error') {
+    <div class="app-doc-viewer__status app-doc-viewer__status--error">
+      <p>{{ errorMessage() }}</p>
+      <button mat-raised-button color="primary" (click)="loadDocument()">Повторить</button>
+    </div>
+  }
+  @case ('success') {
+    <div class="app-doc-viewer__viewer-container">
+      @for (page of pages(); track page.number) {
+        <app-page-viewer
+          [page]="page"
+          [zoom]="zoom()"
+          (addAnnotation)="addAnnotation(page.number, $event)"
+          (annotationUpdated)="updateAnnotation($event)"
+          (annotationDeleted)="deleteAnnotation($event)"
+        />
+      }
+    </div>
+  }
+}

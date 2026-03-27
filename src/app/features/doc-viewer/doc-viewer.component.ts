@@ -1,14 +1,6 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  signal,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { PageViewerComponent } from './page-viewer/page-viewer.component';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentService } from '@core/services/document.service';
@@ -21,7 +13,7 @@ import type { IPage } from '@core/models/page.interface';
 
 @Component({
   selector: 'app-doc-viewer',
-  imports: [CommonModule, MatButtonModule, MatIconModule, PageViewerComponent],
+  imports: [CommonModule, MatButtonModule, PageViewerComponent],
   templateUrl: './doc-viewer.component.html',
   styleUrl: './doc-viewer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,15 +26,32 @@ export class DocViewerComponent {
   // Signals
   protected documentSignal: WritableSignal<IDocument | null> = signal<IDocument | null>(null);
   protected zoom: WritableSignal<number> = signal<number>(1);
+  protected loadingState: WritableSignal<'loading' | 'error' | 'success'> = signal<
+    'loading' | 'error' | 'success'
+  >('loading');
+  protected errorMessage: WritableSignal<string> = signal<string>('');
   protected pages: Signal<Array<IPage>> = computed(() => this.documentSignal()?.pages ?? []);
   protected documentName: Signal<string> = computed(() => this.documentSignal()?.name ?? '');
 
   constructor() {
-    effect(() => {
+    this.loadDocument();
+  }
+
+  protected loadDocument(): void {
+    this.loadingState.set('loading');
+    this.errorMessage.set('');
+
+    try {
       const id: string = this.route.snapshot.paramMap.get('id') ?? '';
       const document: IDocument | null = this.docService.getDocument(id);
       this.documentSignal.set(document);
-    });
+      this.loadingState.set('success');
+    } catch (error: unknown) {
+      this.loadingState.set('error');
+      this.errorMessage.set(
+        error instanceof Error ? error.message : 'Не удалось загрузить документ',
+      );
+    }
   }
 
   /**
@@ -83,18 +92,19 @@ export class DocViewerComponent {
       text: 'New annotation',
     };
 
-    this.documentSignal.update((current) => {
-      if (!current) {
-        return current;
+    this.documentSignal.update((cur) => {
+      if (!cur) {
+        return cur;
       }
 
+      const current: IDocument = structuredClone(cur);
       const page: IPage | undefined = current.pages.find((p) => p.number === pageNumber);
 
       if (page) {
         page.annotations = [...page.annotations, newAnn];
       }
 
-      return { ...current };
+      return current;
     });
   }
 
@@ -104,11 +114,11 @@ export class DocViewerComponent {
    * @param {IAnnotation} updatedAnnotation The annotation object containing the updated data.
    */
   protected updateAnnotation(updatedAnnotation: IAnnotation): void {
-    this.documentSignal.update((current) => {
-      if (!current) {
-        return current;
+    this.documentSignal.update((cur) => {
+      if (!cur) {
+        return cur;
       }
-
+      const current: IDocument = structuredClone(cur);
       const page: { number: number; annotations: Array<IAnnotation> } | undefined =
         current.pages.find((p) => p.number === updatedAnnotation.pageNumber);
 
@@ -120,7 +130,7 @@ export class DocViewerComponent {
         }
       }
 
-      return { ...current };
+      return current;
     });
   }
 
@@ -130,14 +140,18 @@ export class DocViewerComponent {
    * @param {string} id The ID of the annotation to be deleted.
    */
   protected deleteAnnotation(id: string): void {
-    this.documentSignal.update((current) => {
-      if (!current) {
-        return current;
+    this.documentSignal.update((cur) => {
+      if (!cur) {
+        return cur;
       }
+
+      const current: IDocument = structuredClone(cur);
+
       current.pages.forEach((page) => {
         page.annotations = page.annotations.filter((a) => a.id !== id);
       });
-      return { ...current };
+
+      return current;
     });
   }
 

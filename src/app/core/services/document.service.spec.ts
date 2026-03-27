@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { DocumentService } from './document.service';
-import { DOCUMENT_API } from '../data-access/document-api.token';
-import { MOCK_DOCUMENT } from '../../testing/mock-data';
-import type { DocumentApi } from '../data-access/document-api.token';
+import { DOCUMENT_API } from '../api/document-api.token';
+import { MOCK_DOCUMENT_2 } from '../../testing/mock-data';
+import type { DocumentApi } from '../api/document-api.token';
 import type { IDocument } from '../models/document.interface';
 
 describe('DocumentService', () => {
@@ -11,7 +11,7 @@ describe('DocumentService', () => {
 
   beforeEach(() => {
     mockApi = {
-      getDocumentById: vi.fn().mockReturnValue(MOCK_DOCUMENT),
+      getDocumentById: vi.fn().mockReturnValue(MOCK_DOCUMENT_2),
       saveDocument: vi.fn(),
     };
 
@@ -31,15 +31,15 @@ describe('DocumentService', () => {
       const result: IDocument = service.getDocument('123');
 
       expect(mockApi.getDocumentById).toHaveBeenCalledWith('123');
-      expect(result).toBe(MOCK_DOCUMENT);
+      expect(result).toBe(MOCK_DOCUMENT_2);
     });
   });
 
   describe('saveDocument', () => {
     it('should delegate to documentApi.saveDocument', () => {
-      service.saveDocument(MOCK_DOCUMENT);
+      service.saveDocument(MOCK_DOCUMENT_2);
 
-      expect(mockApi.saveDocument).toHaveBeenCalledWith(MOCK_DOCUMENT);
+      expect(mockApi.saveDocument).toHaveBeenCalledWith(MOCK_DOCUMENT_2);
     });
   });
 });

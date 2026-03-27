@@ -1,17 +1,7 @@
 import { Injectable } from '@angular/core';
 import type { IDocument } from '../models/document.interface';
 import type { DocumentApi } from './document-api.token';
-
-const MOCK_DOCUMENT: IDocument = {
-  name: 'test doc',
-  pages: [
-    { number: 1, imageUrl: 'assets/mock-pages/1.png', annotations: [] },
-    { number: 2, imageUrl: 'assets/mock-pages/2.png', annotations: [] },
-    { number: 3, imageUrl: 'assets/mock-pages/3.png', annotations: [] },
-    { number: 4, imageUrl: 'assets/mock-pages/4.png', annotations: [] },
-    { number: 5, imageUrl: 'assets/mock-pages/5.png', annotations: [] },
-  ],
-};
+import { MOCK_DOCUMENT_1 } from 'src/app/testing/mock-data';
 
 @Injectable()
 export class DocumentMockApi implements DocumentApi {
@@ -24,7 +14,7 @@ export class DocumentMockApi implements DocumentApi {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public getDocumentById(_id: string): IDocument {
-    return structuredClone(MOCK_DOCUMENT);
+    return structuredClone(MOCK_DOCUMENT_1);
   }
 
   /**

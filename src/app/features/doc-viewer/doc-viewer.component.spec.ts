@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { DocViewerComponent } from './doc-viewer.component';
 import { DocumentService } from '@core/services/document.service';
-import { MOCK_DOCUMENT } from '../../testing/mock-data';
+import { MOCK_DOCUMENT_2 } from '../../testing/mock-data';
 import type { IAnnotation } from '@core/models/annotation.interface';
 
 vi.mock('uuid', () => ({
@@ -20,7 +20,7 @@ describe('DocViewerComponent', () => {
 
   beforeEach(async () => {
     mockDocService = {
-      getDocument: vi.fn().mockReturnValue(structuredClone(MOCK_DOCUMENT)),
+      getDocument: vi.fn().mockReturnValue(structuredClone(MOCK_DOCUMENT_2)),
       saveDocument: vi.fn(),
     };
 
@@ -45,10 +45,40 @@ describe('DocViewerComponent', () => {
     expect(mockDocService.getDocument).toHaveBeenCalledWith('1');
   });
 
+  it('should have success loading state after init', () => {
+    expect((component as unknown as { loadingState: () => string }).loadingState()).toBe('success');
+  });
+
   it('should expose document name', () => {
     expect((component as unknown as { documentName: () => string }).documentName()).toBe(
       'Test Document',
     );
+  });
+
+  it('should set error state when document loading fails', () => {
+    mockDocService.getDocument.mockImplementation(() => {
+      throw new Error('Network error');
+    });
+
+    (component as unknown as { loadDocument: () => void }).loadDocument();
+
+    expect((component as unknown as { loadingState: () => string }).loadingState()).toBe('error');
+    expect((component as unknown as { errorMessage: () => string }).errorMessage()).toBe(
+      'Network error',
+    );
+  });
+
+  it('should recover from error state on retry', () => {
+    mockDocService.getDocument.mockImplementation(() => {
+      throw new Error('Network error');
+    });
+    (component as unknown as { loadDocument: () => void }).loadDocument();
+
+    mockDocService.getDocument.mockReturnValue(structuredClone(MOCK_DOCUMENT_2));
+    (component as unknown as { loadDocument: () => void }).loadDocument();
+
+    expect((component as unknown as { loadingState: () => string }).loadingState()).toBe('success');
+    expect((component as unknown as { errorMessage: () => string }).errorMessage()).toBe('');
   });
 
   it('should expose pages from document', () => {

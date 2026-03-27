@@ -37,3 +37,17 @@ header {
   background: var(--color-viewer-bg);
   padding: 20px;
 }
+
+.app-doc-viewer__status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 84px);
+  background: var(--color-viewer-bg);
+  gap: 16px;
+
+  &--error {
+    color: var(--color-error);
+  }
+}
