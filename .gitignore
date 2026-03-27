@@ -5,7 +5,7 @@
 /node_modules
 
 # Visual Studio Code
-.vscode/*
+.vscode
 
 # Miscellaneous
-/.angular/cache
+.angular
