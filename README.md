@@ -1,3 +1,10 @@
+### Sonar
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arsensen_docviewer&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arsensen_docviewer)
+[![Duplications](https://sonarcloud.io/api/project_badges/measure?project=Arsensen_docviewer&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Arsensen_docviewer)
+[![Security](https://sonarcloud.io/api/project_badges/measure?project=Arsensen_docviewer&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Arsensen_docviewer)
+[![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=Arsensen_docviewer&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Arsensen_docviewer)
+
 # DocViewer
 
 Приложение для просмотра и аннотирования документов. Построено на Angular 21 с использованием standalone-компонентов и signals.
