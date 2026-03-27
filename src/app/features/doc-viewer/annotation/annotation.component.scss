@@ -39,9 +39,6 @@
   resize: none;
 
   &:focus {
-    outline-width: 1px;
-    outline-color: var(--color-annotation-outline);
-    outline-style: ridge;
     outline: none;
   }
 }

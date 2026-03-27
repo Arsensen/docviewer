@@ -20,8 +20,8 @@ import type { IPage } from '@core/models/page.interface';
 })
 export class DocViewerComponent {
   // Dependencies
-  private route: ActivatedRoute = inject(ActivatedRoute);
-  private docService: DocumentService = inject(DocumentService);
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly docService: DocumentService = inject(DocumentService);
 
   // Signals
   protected documentSignal: WritableSignal<IDocument | null> = signal<IDocument | null>(null);

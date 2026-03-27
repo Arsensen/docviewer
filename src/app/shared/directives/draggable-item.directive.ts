@@ -1,7 +1,5 @@
+import { Directive, inject, input, output, Renderer2, ElementRef } from '@angular/core';
 import type { InputSignal, OnDestroy, OnInit, OutputEmitterRef } from '@angular/core';
-import { Renderer2 } from '@angular/core';
-import { ElementRef } from '@angular/core';
-import { Directive, inject, input, output } from '@angular/core';
 import type { IDragPosition } from '@shared/interfaces';
 import type { DragFilterFn } from '@shared/types';
 
@@ -11,8 +9,8 @@ import type { DragFilterFn } from '@shared/types';
 })
 export class DraggableItemDirective implements OnInit, OnDestroy {
   // Dependencies
-  private el: ElementRef<HTMLElement> = inject(ElementRef);
-  private renderer: Renderer2 = inject(Renderer2);
+  private readonly el: ElementRef<HTMLElement> = inject(ElementRef);
+  private readonly renderer: Renderer2 = inject(Renderer2);
 
   // Inputs
   /**

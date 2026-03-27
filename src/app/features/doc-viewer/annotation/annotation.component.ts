@@ -17,7 +17,7 @@ export class AnnotationComponent {
   public deleted: OutputEmitterRef<string> = output<string>();
 
   // ViewChild
-  private annotationEl = viewChild.required<ElementRef<HTMLElement>>('annotationEl');
+  private readonly annotationEl = viewChild.required<ElementRef<HTMLElement>>('annotationEl');
 
   /**
    * Emits the new dimensions of the annotation.

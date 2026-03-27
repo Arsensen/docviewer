@@ -6,7 +6,7 @@ import { Directive, ElementRef, inject } from '@angular/core';
 })
 export class DraggableAreaDirective implements OnInit {
   // Dependencies
-  private el: ElementRef<HTMLElement> = inject(ElementRef);
+  private readonly el: ElementRef<HTMLElement> = inject(ElementRef);
 
   public ngOnInit(): void {
     const element: HTMLElement = this.el.nativeElement;
